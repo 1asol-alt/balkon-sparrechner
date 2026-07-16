@@ -46,17 +46,17 @@
   <header class="site">
     <span class="mark">1A</span>
     <div>
-      <h1>Balkon-Sparrechner</h1>
-      <p>Was spart ein Balkonkraftwerk-Speicher pro Jahr? Von <a href="https://1asol.de">1ASOL</a></p>
+      <h1>Balkon-Sparrechner <small style="font-size:13px;color:#0a8f4e;font-weight:700">Best-Case-Szenario</small></h1>
+      <p>Best Case: Südbalkon optimal, hoher Verbrauch, hoher Strompreis — alle Werte anpassbar. Von <a href="https://1asol.de">1ASOL</a></p>
     </div>
   </header>
 
   <div class="grid">
     <div class="card">
       <label class="field"><span>Jahresstromverbrauch</span>
-        <div class="in"><input type="number" id="usage" value="3500" min="500" max="20000" step="100"><em>kWh</em></div></label>
+        <div class="in"><input type="number" id="usage" value="4500" min="500" max="20000" step="100"><em>kWh</em></div></label>
       <label class="field"><span>Strompreis</span>
-        <div class="in"><input type="number" id="price" value="35" min="10" max="80" step="1"><em>ct/kWh</em></div></label>
+        <div class="in"><input type="number" id="price" value="40" min="10" max="80" step="1"><em>ct/kWh</em></div></label>
       <label class="field"><span>Modulleistung Balkonkraftwerk</span>
         <div class="in"><input type="number" id="wp" value="800" min="300" max="2000" step="100"><em>Wp</em></div></label>
       <label class="field"><span>Preis Speicher (anpassbar)</span>
@@ -75,7 +75,7 @@
     </div>
   </div>
 
-  <p class="note">Unverbindliche Schätzung. Annahmen: spez. Ertrag 950 kWh/kWp, Eigenverbrauch ohne Speicher ca. 30 %, mit Speicher bis 90 %. Tatsächliche Werte hängen von Standort, Ausrichtung und Verbrauchsprofil ab.</p>
+  <p class="note">Unverbindliche Schätzung. Annahmen: Best Case: spez. Ertrag 1.100 kWh/kWp (optimale Südausrichtung), Eigenverbrauch ohne Speicher ca. 30 %, mit Speicher bis 90 %. Tatsächliche Werte hängen von Standort, Ausrichtung und Verbrauchsprofil ab.</p>
 
   <footer>
     <p>Dieses Tool ist Open Source (MIT). Auch als
@@ -87,12 +87,12 @@
 
 <script>
 (function(){
-  var SPEZ=950,EVO=0.30,EVM=0.90;
+  var SPEZ=1100,EVO=0.30,EVM=0.90;
   function g(id){return document.getElementById(id);}
   function eu(n){return Math.round(n).toLocaleString("de-DE");}
   function num(id,fb){var v=parseFloat((g(id).value||"").replace(",","."));return isFinite(v)&&v>0?v:fb;}
   function calc(){
-    var usage=num("usage",3500),price=num("price",35)/100,wp=num("wp",800),cost=num("cost",957),
+    var usage=num("usage",4500),price=num("price",40)/100,wp=num("wp",800),cost=num("cost",957),
         pv=(wp/1000)*SPEZ,so=Math.min(pv*EVO,usage),sm=Math.min(pv*EVM,usage),
         sao=so*price,sam=sm*price,z=Math.max(sam-sao,0);
     g("saveYear").textContent=eu(sam);
