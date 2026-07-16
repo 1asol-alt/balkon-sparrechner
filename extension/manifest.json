@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "1ASOL Balkon-Sparrechner",
+  "version": "1.0.0",
+  "description": "Berechnen Sie in Sekunden, wie viel Sie mit einem Balkonkraftwerk-Speicher (Marstek Venus E) pro Jahr sparen können.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "1ASOL Balkon-Sparrechner",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  }
+}
