@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balkon-Sparrechner – Was spart ein Balkonkraftwerk-Speicher pro Jahr?</title>
+  <meta name="description" content="Kostenloser Rechner: Geben Sie Verbrauch, Strompreis und Modulleistung ein und sehen Sie sofort, was ein Balkonkraftwerk-Speicher wie der Marstek Venus E pro Jahr spart.">
+  <style>
+    :root{--g:#0a8f4e;--gd:#077a42;--ink:#12212e;--mut:#6b7a89;--ln:#e6ebf0;--gr:#b7c1cc;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:#f6fafc;line-height:1.5;}
+    .wrap{max-width:820px;margin:0 auto;padding:32px 20px 60px;}
+    header.site{display:flex;align-items:center;gap:12px;margin-bottom:28px;}
+    .mark{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;background:var(--g);color:#fff;font-weight:800;font-size:17px;}
+    header.site h1{font-size:22px;line-height:1.2;}
+    header.site p{font-size:13px;color:var(--mut);}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;}
+    .card{border:1px solid var(--ln);border-radius:14px;padding:18px;background:#fff;}
+    .field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
+    .field>span{font-size:12px;color:var(--mut);}
+    .in{display:flex;align-items:center;border:1px solid var(--ln);border-radius:10px;padding:0 10px;background:#fff;}
+    .in:focus-within{border-color:var(--g);box-shadow:0 0 0 2px rgba(10,143,78,.12);}
+    .in input{border:0;outline:0;width:100%;font-size:16px;font-weight:600;padding:10px 0;background:transparent;color:var(--ink);}
+    .in em{font-style:normal;font-size:12px;color:var(--mut);padding-left:6px;white-space:nowrap;}
+    .label{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;}
+    .value{font-size:36px;font-weight:800;color:var(--g);line-height:1.1;margin-bottom:12px;}
+    .value small{font-size:14px;font-weight:600;color:var(--mut);}
+    .bars{display:flex;flex-direction:column;gap:8px;margin-bottom:10px;}
+    .brow{display:grid;grid-template-columns:90px 1fr 60px;align-items:center;gap:8px;font-size:12px;color:var(--mut);}
+    .track{height:12px;background:#eef2f5;border-radius:7px;overflow:hidden;}
+    .fill{height:100%;width:0;border-radius:7px;transition:width .6s ease;}
+    .fgrey{background:var(--gr);}.fgreen{background:var(--g);}
+    .num{font-size:13px;font-weight:700;text-align:right;color:var(--ink);}
+    .payback{font-size:13px;color:var(--mut);border-top:1px dashed var(--ln);padding-top:10px;margin-bottom:14px;}
+    .payback strong{color:var(--ink);}
+    .cta{display:block;text-align:center;text-decoration:none;background:var(--g);color:#fff;font-weight:700;font-size:15px;padding:12px;border-radius:10px;}
+    .cta:hover{background:var(--gd);}
+    .note{font-size:11px;color:var(--mut);margin-top:16px;}
+    footer{margin-top:36px;font-size:13px;color:var(--mut);}
+    footer a{color:var(--g);}
+    @media(max-width:640px){.grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <span class="mark">1A</span>
+    <div>
+      <h1>Balkon-Sparrechner</h1>
+      <p>Was spart ein Balkonkraftwerk-Speicher pro Jahr? Von <a href="https://1asol.de">1ASOL</a></p>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <label class="field"><span>Jahresstromverbrauch</span>
+        <div class="in"><input type="number" id="usage" value="3500" min="500" max="20000" step="100"><em>kWh</em></div></label>
+      <label class="field"><span>Strompreis</span>
+        <div class="in"><input type="number" id="price" value="35" min="10" max="80" step="1"><em>ct/kWh</em></div></label>
+      <label class="field"><span>Modulleistung Balkonkraftwerk</span>
+        <div class="in"><input type="number" id="wp" value="800" min="300" max="2000" step="100"><em>Wp</em></div></label>
+      <label class="field"><span>Preis Speicher (anpassbar)</span>
+        <div class="in"><input type="number" id="cost" value="957" min="200" max="3000" step="10"><em>€</em></div></label>
+    </div>
+
+    <div class="card">
+      <span class="label">Ihre geschätzte Ersparnis</span>
+      <div class="value"><span id="saveYear">0</span> € <small>/ Jahr</small></div>
+      <div class="bars">
+        <div class="brow"><span>ohne Speicher</span><div class="track"><div class="fill fgrey" id="barNo"></div></div><span class="num" id="numNo">0 €</span></div>
+        <div class="brow"><span>mit Speicher</span><div class="track"><div class="fill fgreen" id="barYes"></div></div><span class="num" id="numYes">0 €</span></div>
+      </div>
+      <div class="payback">Amortisation des Speichers: <strong id="payback">–</strong></div>
+      <a class="cta" href="https://1asol.de/collections/marstek-batteriespeicher">Passenden Speicher ansehen</a>
+    </div>
+  </div>
+
+  <p class="note">Unverbindliche Schätzung. Annahmen: spez. Ertrag 950 kWh/kWp, Eigenverbrauch ohne Speicher ca. 30 %, mit Speicher bis 90 %. Tatsächliche Werte hängen von Standort, Ausrichtung und Verbrauchsprofil ab.</p>
+
+  <footer>
+    <p>Dieses Tool ist Open Source (MIT). Auch als
+      <a href="https://github.com/">Chrome-Extension</a> verfügbar.
+      Entwickelt von <a href="https://1asol.de">1ASOL – Photovoltaik Online-Shop</a> ·
+      <a href="https://1asol.de/blogs/pv-ratgeber">PV-Ratgeber</a></p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var SPEZ=950,EVO=0.30,EVM=0.90;
+  function g(id){return document.getElementById(id);}
+  function eu(n){return Math.round(n).toLocaleString("de-DE");}
+  function num(id,fb){var v=parseFloat((g(id).value||"").replace(",","."));return isFinite(v)&&v>0?v:fb;}
+  function calc(){
+    var usage=num("usage",3500),price=num("price",35)/100,wp=num("wp",800),cost=num("cost",957),
+        pv=(wp/1000)*SPEZ,so=Math.min(pv*EVO,usage),sm=Math.min(pv*EVM,usage),
+        sao=so*price,sam=sm*price,z=Math.max(sam-sao,0);
+    g("saveYear").textContent=eu(sam);
+    var mx=Math.max(sam,1);
+    g("barNo").style.width=(sao/mx*100)+"%";g("barYes").style.width="100%";
+    g("numNo").textContent=eu(sao)+" €";g("numYes").textContent=eu(sam)+" €";
+    g("payback").textContent=z>0?(cost/z).toLocaleString("de-DE",{maximumFractionDigits:1})+" Jahre":"–";
+  }
+  ["usage","price","wp","cost"].forEach(function(id){g(id).addEventListener("input",calc);});
+  calc();
+})();
+</script>
+</body>
+</html>
