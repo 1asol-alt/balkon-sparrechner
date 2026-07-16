@@ -10,7 +10,7 @@ modules.
 
 ## 🔗 Links
 
-- **Live demo:** enable GitHub Pages on this repo (`main` branch, root) — the calculator runs at your `github.io` URL
+- **Live demo:** [1asol-alt.github.io/balkon-sparrechner](https://1asol-alt.github.io/balkon-sparrechner/)
 - **Chrome Web Store:** _coming soon (in review)_
 - **Shop:** [1asol.de](https://1asol.de) · [Battery storage collection](https://1asol.de/collections/marstek-batteriespeicher)
 - **PV guide (German):** [1asol.de/blogs/pv-ratgeber](https://1asol.de/blogs/pv-ratgeber)
@@ -33,7 +33,7 @@ location, panel orientation and consumption profile.
 ## 📦 What's in this repo
 
 ```
-├── index.html        ← standalone web version (works as GitHub Pages demo)
+├── index.html        ← standalone web version (live demo above)
 └── extension/        ← Chrome extension (Manifest V3)
     ├── manifest.json
     ├── popup.html / popup.css / popup.js
