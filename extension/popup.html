@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1ASOL Balkon-Sparrechner</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+
+    <header class="head">
+      <div class="brand">
+        <img class="brand-logo" src="https://1asol.de/cdn/shop/files/1ASOL_Logo_22385265-fb16-452e-bbae-22835d2e5f19.png?v=1737372286" alt="1ASOL">
+        <div class="brand-text">
+          <strong>Balkon-Sparrechner</strong>
+          <span>mit Marstek Venus E Speicher</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Balkon-Grafik -->
+    <div class="scene" aria-hidden="true">
+      <svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg" class="scene-svg">
+        <!-- Himmel -->
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#dff1ff"/>
+            <stop offset="1" stop-color="#f3fbff"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="320" height="150" fill="url(#sky)"/>
+        <!-- Sonne -->
+        <g class="sun">
+          <circle cx="270" cy="34" r="16" fill="#ffd23f"/>
+          <g stroke="#ffd23f" stroke-width="3" stroke-linecap="round">
+            <line x1="270" y1="6" x2="270" y2="0"/>
+            <line x1="270" y1="62" x2="270" y2="68"/>
+            <line x1="242" y1="34" x2="236" y2="34"/>
+            <line x1="298" y1="34" x2="304" y2="34"/>
+            <line x1="250" y1="14" x2="246" y2="10"/>
+            <line x1="290" y1="54" x2="294" y2="58"/>
+            <line x1="290" y1="14" x2="294" y2="10"/>
+            <line x1="250" y1="54" x2="246" y2="58"/>
+          </g>
+        </g>
+        <!-- Hauswand -->
+        <rect x="0" y="70" width="150" height="80" fill="#eceff3"/>
+        <rect x="0" y="70" width="150" height="6" fill="#dfe3ea"/>
+        <!-- Fenster -->
+        <rect x="18" y="90" width="34" height="30" rx="2" fill="#cfe6ff"/>
+        <line x1="35" y1="90" x2="35" y2="120" stroke="#b8d6f2" stroke-width="2"/>
+        <line x1="18" y1="105" x2="52" y2="105" stroke="#b8d6f2" stroke-width="2"/>
+        <!-- Balkongeländer -->
+        <rect x="70" y="112" width="74" height="4" fill="#9aa4b2"/>
+        <g stroke="#9aa4b2" stroke-width="3">
+          <line x1="74" y1="116" x2="74" y2="150"/>
+          <line x1="90" y1="116" x2="90" y2="150"/>
+          <line x1="106" y1="116" x2="106" y2="150"/>
+          <line x1="122" y1="116" x2="122" y2="150"/>
+          <line x1="138" y1="116" x2="138" y2="150"/>
+        </g>
+        <!-- PV-Modul am Geländer -->
+        <g class="panel">
+          <rect x="70" y="118" width="74" height="26" rx="2" fill="#0f2a4a"/>
+          <g stroke="#22456f" stroke-width="1.4">
+            <line x1="88" y1="118" x2="88" y2="144"/>
+            <line x1="107" y1="118" x2="107" y2="144"/>
+            <line x1="126" y1="118" x2="126" y2="144"/>
+            <line x1="70" y1="131" x2="144" y2="131"/>
+          </g>
+        </g>
+        <!-- Speicher (Batterie) -->
+        <g class="battery">
+          <rect x="168" y="96" width="40" height="54" rx="6" fill="#ffffff" stroke="#0a8f4e" stroke-width="2.5"/>
+          <rect x="182" y="90" width="12" height="7" rx="2" fill="#0a8f4e"/>
+          <rect class="batt-fill" x="172" y="140" width="32" height="6" rx="2" fill="#0a8f4e"/>
+          <path class="bolt" d="M191 108 l-8 16 h6 l-4 14 l12 -20 h-7 z" fill="#ffd23f" stroke="#0a8f4e" stroke-width="1.2" stroke-linejoin="round"/>
+        </g>
+        <!-- Energiefluss Pfeil -->
+        <path class="flow" d="M148 131 q12 -2 20 -8" fill="none" stroke="#0a8f4e" stroke-width="2.5" stroke-dasharray="4 4"/>
+      </svg>
+    </div>
+
+    <!-- Ergebnis -->
+    <div class="result">
+      <div class="result-main">
+        <span class="result-label">Ihre geschätzte Ersparnis</span>
+        <span class="result-value"><span id="saveYear">0</span> € <small>/ Jahr</small></span>
+      </div>
+      <div class="bars">
+        <div class="bar-row">
+          <span class="bar-cap">ohne Speicher</span>
+          <div class="bar-track"><div class="bar-fill bar-grey" id="barNo"></div></div>
+          <span class="bar-num" id="numNo">0 €</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-cap">mit Venus E</span>
+          <div class="bar-track"><div class="bar-fill bar-green" id="barYes"></div></div>
+          <span class="bar-num" id="numYes">0 €</span>
+        </div>
+      </div>
+      <div class="payback">
+        Amortisation des Speichers: <strong id="payback">–</strong>
+      </div>
+    </div>
+
+    <!-- Eingaben -->
+    <div class="inputs">
+      <label class="field">
+        <span>Jahresstromverbrauch</span>
+        <div class="field-in">
+          <input type="number" id="usage" value="3500" min="500" max="20000" step="100" inputmode="numeric">
+          <em>kWh</em>
+        </div>
+      </label>
+
+      <label class="field">
+        <span>Strompreis</span>
+        <div class="field-in">
+          <input type="number" id="price" value="35" min="10" max="80" step="1" inputmode="numeric">
+          <em>ct/kWh</em>
+        </div>
+      </label>
+
+      <label class="field">
+        <span>Modulleistung Balkonkraftwerk</span>
+        <div class="field-in">
+          <input type="number" id="wp" value="800" min="300" max="2000" step="100" inputmode="numeric">
+          <em>Wp</em>
+        </div>
+      </label>
+
+      <label class="field">
+        <span>Preis Speicher (anpassbar)</span>
+        <div class="field-in">
+          <input type="number" id="cost" value="957" min="200" max="3000" step="10" inputmode="numeric">
+          <em>€</em>
+        </div>
+      </label>
+    </div>
+
+    <a class="cta" id="cta" href="https://1asol.de/collections/marstek-batteriespeicher" target="_blank" rel="noopener">
+      Passenden Speicher ansehen
+    </a>
+
+    <p class="disclaimer">
+      Unverbindliche Schätzung. Annahmen: spez. Ertrag 950&nbsp;kWh/kWp, Eigenverbrauch ohne Speicher ca.&nbsp;30&nbsp;%, mit Speicher bis&nbsp;90&nbsp;%. Tatsächliche Werte hängen von Standort, Ausrichtung und Verbrauchsprofil ab.
+    </p>
+
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
